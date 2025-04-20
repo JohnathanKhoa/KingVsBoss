@@ -39,8 +39,8 @@ export default async function Home() {
       : player1.health <= 0
       ? `${player2.name} wins!`
       : `${player1.name} wins!`;
-  console.log(result);
-  
+    console.log(result);
+
   return (
     <>
       <section>
