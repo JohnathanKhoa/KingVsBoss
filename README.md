@@ -13,4 +13,4 @@ Players are controlled by OpenAI’s ‘gpt-40-mini’. Reasoning models like o3
 Fight turns will perform autonomously in a loop until at least one player reaches 0 health.
 
 TypeScript object and functions fundamentals
-Classes, Constructors, Types, Records, Async, Promise
+Classes, Constructors, Types, Records, Async, Promise, Stream, Error handling,Tertiary Conditionals
