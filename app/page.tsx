@@ -48,9 +48,7 @@ export default async function Home() {
     <>
       <section>
         <h1>Fight</h1>
-        <p>
-          {result}
-        </p>
+        <p>{result}</p>
         <p>{`${player1.name} HP: ${player1.health}`}</p>
         <p>{`${player2.name} HP: ${player2.health}`}</p>
       </section>
