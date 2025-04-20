@@ -7,23 +7,20 @@ const openai = new OpenAI({
 });
 
 async function DecideMove(a: Player, b: Player): Promise<Move> {
-  const completion = openai.chat.completions.create({
+  const completion = await openai.chat.completions.create({
     model: "gpt-4o-mini",
     store: true,
-    messages: [
-      {
-        role: "user",
-        content: `You are player ${a.name} in a turn-based game. You have ${a.health} health left. Your opponent, ${b.name}, has ${b.health} health left. From ${moves}, respond with only one word, one of the following: 'jab', 'haymaker', 'counter', or 'block'.`,
-      },
-    ],
-    max_tokens: 2,
-  });
-  const move = (await completion).choices[0].message.content!.trim();
-  if (move in moves) {
-    return move as Move;
-  }
-  throw new Error(`Invalid move received: ${move}`);
+    messages: [{
+      role: "user",
+      content: `You are player ${a.name} in a turn-based game. You have ${a.health} health left. Your opponent, ${b.name}, has ${b.health} health left. From ${moves} respond with only one word, one of the following: 'jab', 'haymaker', 'counter', or 'block'.`
+    }],
+    max_tokens: 2
+  })
+
+  const move = completion.choices[0].message.content?.trim()
+  return move && move in moves ? (move as Move) : (() => { throw new Error(`Invalid move received: ${move}`) })()
 }
+
 export default async function Home() {
   const player1 = new Player("King");
   const player2 = new Player("Boss");
@@ -42,8 +39,8 @@ export default async function Home() {
       : player1.health <= 0
       ? `${player2.name} wins!`
       : `${player1.name} wins!`;
-
   console.log(result);
+  
   return (
     <>
       <section>
